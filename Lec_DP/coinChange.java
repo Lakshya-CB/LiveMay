@@ -1,10 +1,11 @@
-package Lec_36_37_DP;
+package Lec_38;
 
 public class coinChange {
 	public static void main(String[] args) {
 		int[] coins = { 1, 2, 3 };
-		int A = 4;
+		int A = 40;
 		System.out.println(solve(coins, A, 0));
+		System.out.println(BUSE(coins, A));
 	}
 
 	public static int solve(int[] coins, int A, int idx) {
@@ -35,22 +36,22 @@ public class coinChange {
 		return sp1 + sp2;
 	}
 
-	public static int BU(int[] coins, int Amount) {
-		int[][] dp = new int[Amount+1][coins.length+1];
-		for (int A = 0; A <= Amount; A++) {
-			for (int idx = coins.length - 1; idx >= 0; idx--) {
+	public static int BUSE(int[] coins, int Amount) {
+		int[][] dp = new int[Amount + 1][2];
+		for (int idx = coins.length - 1; idx >= 0; idx--) {
+			for (int A = 0; A <= Amount; A++) {
 //				dp[A][idx]!!
 				if (A == 0) {
-					dp[A][idx] = 1;
+					dp[A][0] = 1;
 					continue;
-//					break;
 				}
 				int sp1 = 0;
 				if (A - coins[idx] >= 0) {
-					sp1 = dp[A - coins[idx]][idx];
+					sp1 = dp[A - coins[idx]][0];
 				}
-				int sp2 = dp[A][idx + 1];
-				dp[A][idx] = sp1 + sp2;
+				int sp2 = dp[A][1];
+				dp[A][0] = sp1 + sp2;
+				dp[A][1] = dp[A][0]; 
 			}
 		}
 		return dp[Amount][0];

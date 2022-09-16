@@ -1,12 +1,10 @@
-package Lec_DP;
+package Lec_38;
 
 public class Fibonacci {
-
 	public static void main(String[] args) {
 		int n = 1100000;
-//		System.out.println(Fibo(n));
-//		System.out.println(FiboTD(n, new int[n + 1]));?
 		System.out.println(FiboTB(n));
+		System.out.println(FiboBUSE(n));
 	}
 
 	public static int Fibo(int n) {
@@ -33,7 +31,7 @@ public class Fibonacci {
 
 //	tabulation!!
 	public static int FiboTB(int Nth) {
-		int[] dp = new int[Nth+1]; // ?
+		int[] dp = new int[Nth + 1]; // ?
 		dp[0] = 0;
 		dp[1] = 1;
 		for (int n = 2; n <= Nth; n++) {
@@ -44,4 +42,20 @@ public class Fibonacci {
 		}
 		return dp[Nth];// biggest Problem!!
 	}
+
+	public static int FiboBUSE(int Nth) {
+		int[] dp = new int[2]; // ?
+		dp[0] = 0;
+		dp[1] = 1;
+		for (int n = 2; n <= Nth; n++) {
+//			dp[n]!!
+			int sp1 = dp[1];
+			int sp2 = dp[0];
+			int curr = sp1 + sp2;// memorization
+			dp[0] = dp[1];
+			dp[1] = curr;
+		}
+		return dp[1];// biggest Problem!!
+	}
+
 }
